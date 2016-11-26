@@ -78,6 +78,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
                 {
                     Models[CurrentDepth + 1] = Models[CurrentDepth].GenerateChildWorldModel();
                     NextAction.ApplyActionEffects(Models[CurrentDepth + 1]);
+                    Models[CurrentDepth + 1].CalculateNextPlayer();
                     ActionPerLevel[CurrentDepth] = NextAction;
                     CurrentDepth += 1;
                     processedActions += 1;
