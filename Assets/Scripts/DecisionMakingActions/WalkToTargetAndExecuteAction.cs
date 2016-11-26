@@ -30,7 +30,7 @@ namespace Assets.Scripts.DecisionMakingActions
 
         private float GetDuration(Vector3 currentPosition)
         {
-            var distance = this.Character.AStarPathFinding.Heuristic.H(currentPosition, this.Target.transform.position);
+            float distance = this.Character.AStarPathFinding.Heuristic.H(currentPosition, this.Target.transform.position);
             return distance / this.Character.Character.MaxSpeed;
         }
 

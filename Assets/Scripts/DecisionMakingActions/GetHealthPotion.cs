@@ -7,32 +7,47 @@ namespace Assets.Scripts.DecisionMakingActions
 {
     public class GetHealthPotion : WalkToTargetAndExecuteAction
     {
-        public GetHealthPotion(AutonomousCharacter character, GameObject target) : base("GetHealthPotion",character,target)
+        private int hpChange;
+
+        public GetHealthPotion(AutonomousCharacter character, GameObject target) : base("GetHealthPotion", character, target)
         {
+            this.hpChange = this.Character.GameManager.characterData.MaxHP - this.Character.GameManager.characterData.HP;
+        }
+
+        public override float GetGoalChange(Goal goal)
+        {
+            var change = base.GetGoalChange(goal);
+            if (goal.Name == AutonomousCharacter.SURVIVE_GOAL)
+                change += -hpChange;
+            return change;
         }
 
         public override bool CanExecute()
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            if (!base.CanExecute()) return false;
+            return this.Character.GameManager.characterData.HP < this.Character.GameManager.characterData.MaxHP;
         }
 
         public override bool CanExecute(WorldModel worldModel)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            if (!base.CanExecute(worldModel)) return false;
+            var hp = (int)worldModel.GetProperty(Properties.HP);
+            var maxhp = (int)worldModel.GetProperty(Properties.MAXHP);
+            return hp < maxhp;
         }
 
         public override void Execute()
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            base.Execute();
+            this.Character.GameManager.GetHealthPotion(this.Target);
         }
 
         public override void ApplyActionEffects(WorldModel worldModel)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            base.ApplyActionEffects(worldModel);
+            worldModel.SetProperty(Properties.HP, 10);
+            //disables the target object so that it can't be reused again
+            worldModel.SetProperty(this.Target.name, false);
         }
     }
 }
