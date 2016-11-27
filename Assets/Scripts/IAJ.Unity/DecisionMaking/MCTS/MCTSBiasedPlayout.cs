@@ -19,32 +19,10 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 			//Debug.Log("Playout MCTS Biased");
 			WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
 
-			int i = 0;
-			int playoutReach = 0;
-			GOB.Action bestAction = roll.GetExecutableActions()[0];
-			float bestScore = 0.0f;
-			float auxScore = 0.0f;
-			WorldModel aux;
 
 			while (!roll.IsTerminal ()) 
 			{
-				// Gets all actions
-				GOB.Action[] actions = roll.GetExecutableActions ();
-				foreach (GOB.Action action in actions) {
-					aux = roll.GenerateChildWorldModel ();
-					action.ApplyActionEffects (aux);
-					auxScore = actionScore (aux);
-					if (auxScore >= bestScore)
-					{
-						bestScore = auxScore;
-						bestAction = action;
-					}
-		
-
-				}
-				bestAction.ApplyActionEffects (roll);
-				roll.CalculateNextPlayer ();
-				playoutReach++;
+				
 
 			}
 
