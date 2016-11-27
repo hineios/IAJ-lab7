@@ -54,6 +54,13 @@ namespace Assets.Scripts.DecisionMakingActions
 		{
             var hp = (int)currentState.GetProperty(Properties.HP);
 
+			if (hp <= 5) {
+				hp = 0;
+			} else if (hp <= 10)
+				hp = 2;
+			else
+				hp = 4;
+
             //if the change in HP is big (the current HP is low), we should consider doing it
             return this.ActionWeight*hp + this.DurationWeight*base.GetH(currentState);
 		}

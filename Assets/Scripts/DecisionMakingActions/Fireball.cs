@@ -76,15 +76,15 @@ namespace Assets.Scripts.DecisionMakingActions
 		public override float GetH(WorldModel currentState)
 		{
 			float result = 0.0f;
-			if (Target.Equals ("Skeleton")) { //Not as good as killing the Orc, but still good
+			if (Target.tag.Equals ("Skeleton")) { //Not as good as killing the Orc, but still good
 				result = 0.5f;
-			} else if (Target.Equals ("Dragon")) { //Dragons are imune...
-				result = 10.0f;
-			} else if (Target.Equals ("Orc")) { //best possible use of the Fireball
+			} else if (Target.tag.Equals ("Dragon")) { //Dragons are imune...
+				result = 50.0f;
+			} else if (Target.tag.Equals ("Orc")) { //best possible use of the Fireball
 				result = 0.0f;
 			}
 			
-			return result + this.DurationWeight*base.GetH(currentState);
+			return this.ActionWeight * result + this.DurationWeight*base.GetH(currentState);
 			
 		}
     }

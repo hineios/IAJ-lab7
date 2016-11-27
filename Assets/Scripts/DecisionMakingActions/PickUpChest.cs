@@ -53,8 +53,9 @@ namespace Assets.Scripts.DecisionMakingActions
 
 		public override float GetH(WorldModel currentState)
 		{
+			var distance = base.GetH (currentState);
             //We do want to get rich as fast as possible (h = 0, consider only the durantion of the action)
-            return this.DurationWeight*base.GetH(currentState) + 10.0f;
+            return this.DurationWeight*base.GetH(currentState);
 		}
     }
 }

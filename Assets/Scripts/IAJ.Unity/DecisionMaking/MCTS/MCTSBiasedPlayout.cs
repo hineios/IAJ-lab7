@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.IAJ.Unity.DecisionMaking.GOB;
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 {
@@ -18,30 +19,30 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         {
 			//Debug.Log("Playout MCTS Biased");
 			WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
-
+			List<GOB.Action> listOfActions = new List<GOB.Action> ();
 			int playoutReach = 0;
-			float sumOfActionsH = 0.0f;
+			double sumOfActionsH = 0.0f;
 			while (!roll.IsTerminal ()) 
 			{
 				GOB.Action[] actions = roll.GetExecutableActions ();
 				GOB.Action choosenAction = actions[0];
 				foreach (GOB.Action action in actions) {
-					sumOfActionsH += action.GetH (roll);
+					sumOfActionsH += Mathf.Exp(action.GetH (roll));
 				}
 				int i = 0;
 				float actionValue = 0.0f;
-				float gibbsProb = 20.0f;
-				float currentGibbsProb = 0.0f;
+				double gibbsProb = 20.0;
+				double currentGibbsProb = 0.0;
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
-					currentGibbsProb = Mathf.Exp(-1 * actionValue) / Mathf.Exp(-1 *sumOfActionsH);
+					currentGibbsProb = Mathf.Exp(actionValue) /sumOfActionsH;
 					if (currentGibbsProb < gibbsProb) {
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
 					i++;
 				}
-
+				listOfActions.Add (choosenAction);
 				choosenAction.ApplyActionEffects (roll);
 				roll.CalculateNextPlayer();
 				playoutReach++;
@@ -50,11 +51,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 			if (playoutReach > MaxPlayoutDepthReached)
 				MaxPlayoutDepthReached = playoutReach;
 
+			float re = roll.GetScore ();
 			Reward reward = new Reward();
 			reward.Value = roll.GetScore();
 			reward.PlayerID = roll.GetNextPlayer();
 			return reward;
         }
-			
     }
 }

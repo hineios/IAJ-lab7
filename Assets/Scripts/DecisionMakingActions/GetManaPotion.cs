@@ -42,7 +42,7 @@ namespace Assets.Scripts.DecisionMakingActions
 		public override float GetH(WorldModel currentState)
 		{
             var mana = (int)currentState.GetProperty(Properties.MANA);
-
+			var distance = base.GetH (currentState);
             //we should try to maximize the usefullness of the Mana pot (use it when Mana is lowest)
             return this.ActionWeight*mana + this.DurationWeight * base.GetH(currentState);
         }
