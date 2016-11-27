@@ -4,6 +4,12 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
 {
     public class Action
     {
+        protected float DurationWeight = 0.2f;
+        protected float HPChangeWeight = 0.2f;
+        protected float ManaChangeWeight = 0.2f;
+        protected float XPChangeWeight = 0.2f;
+        protected float MoneyChangeWeight = 0.2f;
+        
         public string Name { get; set; }
         private Dictionary<Goal, float> GoalEffects { get; set; }
         public float Duration { get; set; }
@@ -56,8 +62,10 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
         {
         }
 
-		public virtual float getH(WorldModel currentState)
+		public virtual float GetH(WorldModel currentState)
 		{
+            //Keep in mind that low H value means an action is desirable
+            //Also keep in mind that this method is only called if the action is executable
 			return 0.0f;
 		}
     }

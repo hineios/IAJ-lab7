@@ -78,9 +78,12 @@ namespace Assets.Scripts.DecisionMakingActions
             return 0.0f;
         }
 
-		public override float getH(WorldModel currentState)
+		public override float GetH(WorldModel currentState)
 		{
-			return 0.0f;
+            //This action has no duration
+            //Since this method is only called if the action is executable, we should do it right away
+            //It has only benefits increase MaxHP and heal to new MaxHP
+            return 0.0f;
 		}
     }
 }

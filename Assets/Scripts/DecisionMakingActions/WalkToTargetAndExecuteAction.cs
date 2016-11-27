@@ -73,5 +73,11 @@ namespace Assets.Scripts.DecisionMakingActions
 
             worldModel.SetProperty(Properties.POSITION, Target.transform.position);
         }
+
+        public override float GetH(WorldModel currentState)
+        {
+            //The only feature that counts is the duration of doing this action (no need for the weight)
+            return this.GetDuration(currentState);
+        }
     }
 }

@@ -50,9 +50,13 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float getH(WorldModel currentState)
+		public override float GetH(WorldModel currentState)
 		{
-			return 0.0f;
+            var maxhp = (int)currentState.GetProperty(Properties.MAXHP);
+
+            //if the change in HP is big (the current HP is low), we should consider doing it
+            //I't not enough to check the current HP because the maxHP varies with lvl
+            return this.HPChangeWeight*(maxhp - hpChange) + this.DurationWeight*base.GetH(currentState);
 		}
     }
 }

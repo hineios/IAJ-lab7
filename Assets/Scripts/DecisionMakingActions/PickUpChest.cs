@@ -51,9 +51,10 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float getH(WorldModel currentState)
+		public override float GetH(WorldModel currentState)
 		{
-			return 0.0f;
+            //We do want to get rich as fast as possible (h = 0, consider only the durantion of the action)
+            return this.DurationWeight*base.GetH(currentState);
 		}
     }
 }
