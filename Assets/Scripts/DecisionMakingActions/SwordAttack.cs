@@ -74,7 +74,27 @@ namespace Assets.Scripts.DecisionMakingActions
 
 		public override float getH(WorldModel currentState)
 		{
-			return 0.0f;
+			float result = 0.0f;
+			int hp = (int)currentState.GetProperty (Properties.HP);
+			if (Target.Equals ("Skeleton")) {
+				if (hp > 5)
+					result = 10.0f;
+				else
+					result = 0.0f;
+			} else if (Target.Equals ("Dragon")) {
+				if (hp > 20)
+					result = 8.0f;
+				else
+					result = 0.0f;
+				
+			} else if (Target.Equals ("Orc")) {
+				if (hp > 10)
+					result = 9.0f;
+				else
+					result = 0.0f;
+			}
+			Vector3 distance = Character.Character.KinematicData.position - Target.transform.position;
+			return result + distance.sqrMagnitude;
 		}
     }
 }

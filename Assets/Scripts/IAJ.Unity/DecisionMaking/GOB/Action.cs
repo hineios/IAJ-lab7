@@ -56,5 +56,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
         {
         }
 
+		public virtual float getH(WorldModel currentState)
+		{
+			return 0.0f;
+		}
     }
 }
