@@ -68,7 +68,7 @@ namespace Assets.Scripts
         public void Initialize(NavMeshPathGraph navMeshGraph, AStarPathfinding pathfindingAlgorithm)
         {
             this.MCTSActive = true; //change this if you want to try DL-GOAP
-            this.draw = false;
+            this.draw = true;
             this.navMesh = navMeshGraph;
             this.AStarPathFinding = pathfindingAlgorithm;
             this.AStarPathFinding.NodesPerSearch = 100;
@@ -340,12 +340,12 @@ namespace Assets.Scripts
                     Gizmos.color = Color.red;
                     Gizmos.DrawSphere(this.currentSolution.PathPositions[this.currentSolution.PathPositions.Count - 1], 6.0f);
 
-                    var previousPosition = this.startPosition;
-                    foreach (var pathPosition in this.currentSmoothedSolution.PathPositions)
-                    {
-                        Debug.DrawLine(previousPosition, pathPosition, Color.green);
-                        previousPosition = pathPosition;
-                    }
+                    //var previousPosition = this.startPosition;
+                    //foreach (var pathPosition in this.currentSmoothedSolution.PathPositions)
+                    //{
+                    //    Debug.DrawLine(previousPosition, pathPosition, Color.green);
+                    //    previousPosition = pathPosition;
+                    //}
                 }
             }
         }
