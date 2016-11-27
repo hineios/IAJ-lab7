@@ -39,6 +39,10 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name, false);
         }
 
+		public override float getH(WorldModel currentState)
+		{
+			return 0.0f;
+		}
 
     }
 }

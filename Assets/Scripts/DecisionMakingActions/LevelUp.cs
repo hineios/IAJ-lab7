@@ -77,5 +77,10 @@ namespace Assets.Scripts.DecisionMakingActions
         {
             return 0.0f;
         }
+
+		public override float getH(WorldModel currentState)
+		{
+			return 0.0f;
+		}
     }
 }

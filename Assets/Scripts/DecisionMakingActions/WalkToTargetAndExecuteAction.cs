@@ -73,6 +73,5 @@ namespace Assets.Scripts.DecisionMakingActions
 
             worldModel.SetProperty(Properties.POSITION, Target.transform.position);
         }
-
     }
 }
