@@ -90,7 +90,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             var node = this.BestFirstChild;
             while (true)
             {
-                if (node == null || node.State.IsTerminal())
+                if (node == null)
                     break;
                 this.BestActionSequence.Add(node.Action);
                 node = BestChild(node);
