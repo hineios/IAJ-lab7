@@ -135,7 +135,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 // Gets a random action
                 GOB.Action action = roll.GetExecutableActions()[RandomGenerator.Next(0, roll.GetExecutableActions().Length - 1)];
                 action.ApplyActionEffects(roll);
-                //roll.CalculateNextPlayer();
+                roll.CalculateNextPlayer();
                 playoutReach += 1;
             }
 
@@ -164,7 +164,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         {
             WorldModel futureState = parent.State.GenerateChildWorldModel();
             action.ApplyActionEffects(futureState);
-            //futureState.CalculateNextPlayer();
+            futureState.CalculateNextPlayer();
             MCTSNode child = new MCTSNode(futureState);
             child.Parent = parent;
             child.Action = action;
