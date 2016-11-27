@@ -12,9 +12,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         public bool InProgress { get; private set; }
         public int MaxIterations { get; set; }
         public int MaxIterationsProcessedPerFrame { get; set; }
-        public int MaxPlayoutDepthReached { get; private set; }
-        public int MaxSelectionDepthReached { get; private set; }
-        public float TotalProcessingTime { get; private set; }
+        public int MaxPlayoutDepthReached { get; protected set; }
+        public int MaxSelectionDepthReached { get; protected set; }
+        public float TotalProcessingTime { get; protected set; }
         public MCTSNode BestFirstChild { get; set; }
         public List<GOB.Action> BestActionSequence { get; private set; }
 
@@ -133,7 +133,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             while (!roll.IsTerminal())
             {
                 // Gets a random action
-                GOB.Action action = roll.GetExecutableActions()[RandomGenerator.Next(0, roll.GetExecutableActions().Length - 1)];
+                GOB.Action action = roll.GetExecutableActions()[RandomGenerator.Next(0, roll.GetExecutableActions().Length)];
                 action.ApplyActionEffects(roll);
                 roll.CalculateNextPlayer();
                 playoutReach += 1;
