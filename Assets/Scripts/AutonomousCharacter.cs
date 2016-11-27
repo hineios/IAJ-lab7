@@ -121,6 +121,7 @@ namespace Assets.Scripts
 
             foreach (var chest in GameObject.FindGameObjectsWithTag("Chest"))
             {
+				string name = chest.name;
                 this.Actions.Add(new PickUpChest(this, chest));
             }
 

@@ -28,16 +28,18 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				foreach (GOB.Action action in actions) {
 					sumOfActionsH += action.GetH (roll);
 				}
+				int i = 0;
 				float actionValue = 0.0f;
 				float gibbsProb = 20.0f;
 				float currentGibbsProb = 0.0f;
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
-					currentGibbsProb = actionValue / sumOfActionsH;
+					currentGibbsProb = Mathf.Exp(-1 * actionValue) / Mathf.Exp(-1 *sumOfActionsH);
 					if (currentGibbsProb < gibbsProb) {
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
+					i++;
 				}
 
 				choosenAction.ApplyActionEffects (roll);
