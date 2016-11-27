@@ -73,19 +73,18 @@ namespace Assets.Scripts.DecisionMakingActions
                 worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float getH(WorldModel currentState)
+		public override float GetH(WorldModel currentState)
 		{
 			float result = 0.0f;
-			int hp = (int)currentState.GetProperty (Properties.HP);
-			if (Target.Equals ("Skeleton")) {
-					result = 10.0f;
-			} else if (Target.Equals ("Dragon")) {
+			if (Target.Equals ("Skeleton")) { //Not as good as killing the Orc, but still good
+				result = 0.5f;
+			} else if (Target.Equals ("Dragon")) { //Dragons are imune...
+				result = 10.0f;
+			} else if (Target.Equals ("Orc")) { //best possible use of the Fireball
 				result = 0.0f;
-			} else if (Target.Equals ("Orc")) {
-					result = 9.0f;
 			}
-			Vector3 distance = Character.Character.KinematicData.position - Target.transform.position;
-			return result + distance.sqrMagnitude - GetDuration();
+			
+			return result + this.DurationWeight*base.GetH(currentState);
 			
 		}
     }

@@ -72,29 +72,18 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name,false);
         }
 
-		public override float getH(WorldModel currentState)
+		public override float GetH(WorldModel currentState)
 		{
-			float result = 0.0f;
-			int hp = (int)currentState.GetProperty (Properties.HP);
-			if (Target.Equals ("Skeleton")) {
-				if (hp > 5)
-					result = 10.0f;
-				else
-					result = 0.0f;
-			} else if (Target.Equals ("Dragon")) {
-				if (hp > 20)
-					result = 8.0f;
-				else
-					result = 0.0f;
-				
-			} else if (Target.Equals ("Orc")) {
-				if (hp > 10)
-					result = 9.0f;
-				else
-					result = 0.0f;
-			}
-			Vector3 distance = Character.Character.KinematicData.position - Target.transform.position;
-			return result + distance.sqrMagnitude- GetDuration();
+            //We must be capable of withstanding the retaliation of the mob
+            float value=5f;
+            if (Target.Equals("Skeleton")) //not as bad as kiling an orc, but still bad
+                value = 1.0f;
+            else if (Target.Equals("Dragon")) //only way to kill the dragon, so we better use it
+                value = 0f;
+            else if (Target.Equals("Orc")) //this is the worst action, we should use the fireball
+                value = 5f;
+
+            return this.ActionWeight*value + this.DurationWeight*base.GetH(currentState);
 		}
     }
 }

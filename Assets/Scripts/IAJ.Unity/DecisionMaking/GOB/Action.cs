@@ -4,11 +4,8 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
 {
     public class Action
     {
-        protected float DurationWeight = 0.2f;
-        protected float HPChangeWeight = 0.2f;
-        protected float ManaChangeWeight = 0.2f;
-        protected float XPChangeWeight = 0.2f;
-        protected float MoneyChangeWeight = 0.2f;
+        protected float DurationWeight = 0.5f;
+        protected float ActionWeight = 0.5f;
         
         public string Name { get; set; }
         private Dictionary<Goal, float> GoalEffects { get; set; }

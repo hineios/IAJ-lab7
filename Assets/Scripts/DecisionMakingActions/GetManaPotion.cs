@@ -44,7 +44,7 @@ namespace Assets.Scripts.DecisionMakingActions
             var mana = (int)currentState.GetProperty(Properties.MANA);
 
             //we should try to maximize the usefullness of the Mana pot (use it when Mana is lowest)
-            return this.ManaChangeWeight*mana + this.DurationWeight * base.GetH(currentState);
+            return this.ActionWeight*mana + this.DurationWeight * base.GetH(currentState);
         }
 
     }
