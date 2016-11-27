@@ -322,5 +322,26 @@ namespace Assets.Scripts
                 this.previousTarget = targetPosition;
             }
         }
+
+        public void OnDrawGizmos()
+        {
+            if (this.draw)
+            {
+                //draw the current Solution Path if any (for debug purposes)
+
+                if (this.currentSolution != null)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(this.currentSolution.PathPositions[this.currentSolution.PathPositions.Count - 1], 6.0f);
+
+                    var previousPosition = this.startPosition;
+                    foreach (var pathPosition in this.currentSmoothedSolution.PathPositions)
+                    {
+                        Debug.DrawLine(previousPosition, pathPosition, Color.green);
+                        previousPosition = pathPosition;
+                    }
+                }
+            }
+        }
     }
 }
