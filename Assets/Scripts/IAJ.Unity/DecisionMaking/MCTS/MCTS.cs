@@ -145,6 +145,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             // Gets the reward of that branch (the Score of that reached final state) 
             Reward reward = new Reward();
             reward.Value = roll.GetScore();
+            reward.PlayerID = roll.GetNextPlayer();
             return reward;
         }
 
@@ -155,7 +156,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             while (node != null)
             {
                 node.N += 1;
-                node.Q += reward.Value;
+                node.Q += reward.GetRewardForNode(node);
                 node = node.Parent;
             }
         }
@@ -176,11 +177,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         protected virtual MCTSNode BestUCTChild(MCTSNode node)
         {
             MCTSNode bestChild = null;
-            double UCTValue, MaxUCTValue = 0;
+            double UCTValue, MaxUCTValue = float.MinValue;
 
             foreach (MCTSNode child in node.ChildNodes)
             {
-                UCTValue = child.Q + C * Math.Sqrt(Math.Log(child.Parent.N) / node.N);
+                UCTValue = child.Q/child.N + C * Math.Sqrt(Math.Log(child.Parent.N) / node.N);
 
                 if (UCTValue > MaxUCTValue)
                 {
@@ -196,11 +197,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         protected MCTSNode BestChild(MCTSNode node)
         {
             MCTSNode bestChild = null;
-            double UCTValue, MaxUCTValue = 0;
+            double UCTValue, MaxUCTValue = float.MinValue;
 
             foreach (MCTSNode child in node.ChildNodes)
             {
-                UCTValue = child.Q + Math.Sqrt(Math.Log(child.Parent.N) / node.N);
+                UCTValue = child.Q/child.N + Math.Sqrt(Math.Log(child.Parent.N) / node.N);
 
                 if (UCTValue > MaxUCTValue)
                 {
