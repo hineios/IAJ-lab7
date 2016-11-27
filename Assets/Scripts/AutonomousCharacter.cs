@@ -33,7 +33,9 @@ namespace Assets.Scripts
         public Text TotalProcessingTimeText;
         public Text BestDiscontentmentText;
         public Text ProcessedActionsText;
+        public Text PlayoutReachedText;
         public Text BestActionText;
+        public Text RaveValueText;
         public bool MCTSActive;
 
 
@@ -262,8 +264,11 @@ namespace Assets.Scripts
             }
 
             this.TotalProcessingTimeText.text = "Process. Time: " + this.MCTSDecisionMaking.TotalProcessingTime.ToString("F");
-            
-            this.ProcessedActionsText.text = "Max Depth: " + this.MCTSDecisionMaking.MaxPlayoutDepthReached.ToString();
+
+            this.ProcessedActionsText.text = "Max Selection Depth: " + this.MCTSDecisionMaking.MaxSelectionDepthReached.ToString();
+            this.PlayoutReachedText.text = "Max Playout Depth: " + this.MCTSDecisionMaking.MaxPlayoutDepthReached.ToString();
+
+            //this.RaveValueText.text = "Current Iterations: " + this.MCTSDecisionMaking.CurrentIterations.ToString();
 
             if (this.MCTSDecisionMaking.BestFirstChild != null)
             {
