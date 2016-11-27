@@ -94,7 +94,7 @@ namespace Assets.Scripts.DecisionMakingActions
 					result = 0.0f;
 			}
 			Vector3 distance = Character.Character.KinematicData.position - Target.transform.position;
-			return result + distance.sqrMagnitude;
+			return result + distance.sqrMagnitude- GetDuration();
 		}
     }
 }
