@@ -157,9 +157,9 @@ namespace Assets.Scripts
             this.GOAPDecisionMaking = new DepthLimitedGOAPDecisionMaking(worldModel,this.Actions,this.Goals);
             //this.MCTSDecisionMaking = new MCTS(worldModel);
             //this.MCTSDecisionMaking = new MCTSRAVE(worldModel);
-			this.MCTSDecisionMaking = new MCTSBiasedPlayout(worldModel);
-            this.MCTSDecisionMaking.MaxIterations = 10000;
-            this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 50;
+            this.MCTSDecisionMaking = new MCTSBiasedPlayout(worldModel);
+            this.MCTSDecisionMaking.MaxIterations = 100000;
+            this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 100;
         }
 
         void Update()
@@ -267,8 +267,8 @@ namespace Assets.Scripts
 
             this.TotalProcessingTimeText.text = "Process. Time: " + this.MCTSDecisionMaking.TotalProcessingTime.ToString("F");
 
-//            this.ProcessedActionsText.text = "Max Selection Depth: " + this.MCTSDecisionMaking.MaxSelectionDepthReached.ToString();
-//            this.PlayoutReachedText.text = "Max Playout Depth: " + this.MCTSDecisionMaking.MaxPlayoutDepthReached.ToString();
+            this.ProcessedActionsText.text = "Max Selection Depth: " + this.MCTSDecisionMaking.MaxSelectionDepthReached.ToString();
+            this.PlayoutReachedText.text = "Max Playout Depth: " + this.MCTSDecisionMaking.MaxPlayoutDepthReached.ToString();
 
             //this.RaveValueText.text = "Current Iterations: " + this.MCTSDecisionMaking.CurrentIterations.ToString();
 
