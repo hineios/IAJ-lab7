@@ -76,13 +76,23 @@ namespace Assets.Scripts.DecisionMakingActions
 		{
             //We must be capable of withstanding the retaliation of the mob
             float value=5f;
-            if (Target.Equals("Skeleton")) //not as bad as kiling an orc, but still bad
-                value = 1.0f;
-            else if (Target.Equals("Dragon")) //only way to kill the dragon, so we better use it
-                value = 0f;
-            else if (Target.Equals("Orc")) //this is the worst action, we should use the fireball
-                value = 5f;
-
+			int life = (int)currentState.GetProperty (Properties.HP);
+			if (Target.Equals ("Skeleton")) { //not as bad as kiling an orc, but still bad
+				if (life <= 5)
+					value = 10f;
+				else
+					value = 1.0f;
+			} else if (Target.Equals ("Dragon")) { //only way to kill the dragon, so we better use it
+				if (life <= 20)
+					value = 10f;
+				else
+					value = 0.0f;
+			} else if (Target.Equals ("Orc")) { //this is the worst action, we should use the fireball
+				if (life <= 10)
+					value = 10f;
+				else
+					value = 5.0f;
+			}
             return this.ActionWeight*value + this.DurationWeight*base.GetH(currentState);
 		}
     }

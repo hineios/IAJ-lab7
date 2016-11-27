@@ -29,12 +29,12 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 					sumOfActionsH += action.GetH (roll);
 				}
 				float actionValue = 0.0f;
-				float gibbsProb = 0.0f;
+				float gibbsProb = 20.0f;
 				float currentGibbsProb = 0.0f;
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
 					currentGibbsProb = actionValue / sumOfActionsH;
-					if (currentGibbsProb > gibbsProb) {
+					if (currentGibbsProb < gibbsProb) {
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
