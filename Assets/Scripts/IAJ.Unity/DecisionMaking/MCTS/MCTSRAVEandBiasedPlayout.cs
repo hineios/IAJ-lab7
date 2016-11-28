@@ -73,7 +73,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 {
                     actionValue = action.GetH(roll);
                     currentGibbsProb = Math.Exp(-actionValue) / sumOfActionsH;
-                    if (currentGibbsProb < gibbsProb)
+                    if (currentGibbsProb > gibbsProb)
                     {
                         gibbsProb = currentGibbsProb;
                         choosenAction = action;

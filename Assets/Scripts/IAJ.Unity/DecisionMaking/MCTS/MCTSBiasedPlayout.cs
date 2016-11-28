@@ -33,7 +33,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
 					currentGibbsProb = Math.Exp(-actionValue) /sumOfActionsH;
-					if (currentGibbsProb < gibbsProb) {
+					if (currentGibbsProb > gibbsProb) {
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
