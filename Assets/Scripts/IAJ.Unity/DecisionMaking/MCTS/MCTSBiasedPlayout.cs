@@ -14,9 +14,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         {
         }
 
-        protected override Reward Playout(WorldModel initialPlayoutState)
+		protected override Reward Playout(EfficientWorldModel initialPlayoutState)
         {
-			WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
+			EfficientWorldModel roll = initialPlayoutState.GenerateChildWorldModel();
 			int playoutReach = 0;
 			double sumOfActionsH = 0.0f;
 			while (!roll.IsTerminal ()) 
@@ -24,7 +24,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				GOB.Action[] actions = roll.GetExecutableActions ();
 				GOB.Action choosenAction = actions[0];
 				foreach (GOB.Action action in actions) {
-					sumOfActionsH += Math.Exp(-action.GetH (roll));
+					sumOfActionsH += Math.Exp(action.GetH (roll));
 				}
 				int i = 0;
 				float actionValue = 0.0f;
@@ -32,8 +32,13 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				double currentGibbsProb = 0.0;
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
+<<<<<<< HEAD
 					currentGibbsProb = Math.Exp(-actionValue) /sumOfActionsH;
 					if (currentGibbsProb > gibbsProb) {
+=======
+					currentGibbsProb = Math.Exp(actionValue) /sumOfActionsH;
+					if (currentGibbsProb < gibbsProb) {
+>>>>>>> c805cb3ad9dc10e1df02802407a049253cbeee2c
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
