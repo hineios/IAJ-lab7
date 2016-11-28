@@ -26,8 +26,6 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         protected CurrentStateWorldModel CurrentStateWorldModel { get; set; }
         protected MCTSNode InitialNode { get; set; }
         protected System.Random RandomGenerator { get; set; }
-        
-        
 
         public MCTS(CurrentStateWorldModel currentStateWorldModel)
         {
@@ -105,11 +103,13 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         {
             var node = initialNode;
             int selectionReach = 0;
+            GOB.Action a = null;
             while (!node.State.IsTerminal())
             {
-                if (node.ChildNodes.Count < node.State.GetExecutableActions().Length)
+                a = node.State.GetNextAction();
+                if (a != null)
                 {
-                    return Expand(node, node.State.GetNextAction());
+                    return Expand(node, a);
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 
         protected virtual Reward Playout(WorldModel initialPlayoutState)
         {
-            //Debug.Log("Playout MCTS");
+            
             WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
 
             int playoutReach = 0;
@@ -146,12 +146,12 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             Reward reward = new Reward();
             reward.Value = roll.GetScore();
             reward.PlayerID = roll.GetNextPlayer();
+
             return reward;
         }
 
         protected virtual void Backpropagate(MCTSNode node, Reward reward)
         {
-            //Debug.Log("Backpropagating MCTS");
             // Drills up and updates each parent until the root with the reward value of the final node
             while (node != null)
             {
@@ -176,40 +176,59 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         //gets the best child of a node, using the UCT formula
         protected virtual MCTSNode BestUCTChild(MCTSNode node)
         {
-            MCTSNode bestChild = null;
+            List<MCTSNode> bestChild = new List<MCTSNode>();
             double UCTValue, MaxUCTValue = float.MinValue;
 
             foreach (MCTSNode child in node.ChildNodes)
             {
                 UCTValue = child.Q/child.N + C * Math.Sqrt(Math.Log(child.Parent.N) / node.N);
-
+                
                 if (UCTValue > MaxUCTValue)
                 {
-                    bestChild = child;
+                    bestChild.Clear();
+                    bestChild.Add(child);
                     MaxUCTValue = UCTValue;
+                }else if(UCTValue == MaxUCTValue)
+                {
+                    bestChild.Add(child);
                 }
             }
-            return bestChild;
+            if (bestChild.Count == 1)
+                return bestChild[0];
+            else if (bestChild.Count == 0)
+                return null;
+            else
+                return bestChild[RandomGenerator.Next(0, bestChild.Count)];
         }
 
         //this method is very similar to the bestUCTChild, but it is used to return the final action of the MCTS search, and so we do not care about
         //the exploration factor
         protected MCTSNode BestChild(MCTSNode node)
         {
-            MCTSNode bestChild = null;
+            List<MCTSNode> bestChild = new List<MCTSNode>();
             double UCTValue, MaxUCTValue = float.MinValue;
 
             foreach (MCTSNode child in node.ChildNodes)
             {
-                UCTValue = child.Q/child.N + Math.Sqrt(Math.Log(child.Parent.N) / node.N);
+                UCTValue = child.Q / child.N + Math.Sqrt(Math.Log(child.Parent.N) / node.N);
 
                 if (UCTValue > MaxUCTValue)
                 {
-                    bestChild = child;
+                    bestChild.Clear();
+                    bestChild.Add(child);
                     MaxUCTValue = UCTValue;
                 }
+                else if (UCTValue == MaxUCTValue)
+                {
+                    bestChild.Add(child);
+                }
             }
-            return bestChild;
+            if (bestChild.Count == 1)
+                return bestChild[0];
+            else if (bestChild.Count == 0)
+                return null;
+            else
+                return bestChild[RandomGenerator.Next(0, bestChild.Count)];
         }
 
 

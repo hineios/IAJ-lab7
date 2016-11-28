@@ -12,7 +12,6 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 
         public MCTSBiasedPlayout(CurrentStateWorldModel currentStateWorldModel) : base(currentStateWorldModel)
         {
-			this.MaxPlayoutDepthReached = 0;
         }
 
         protected override Reward Playout(WorldModel initialPlayoutState)

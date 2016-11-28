@@ -158,7 +158,7 @@ namespace Assets.Scripts
             //this.MCTSDecisionMaking = new MCTS(worldModel);
             //this.MCTSDecisionMaking = new MCTSRAVE(worldModel);
             this.MCTSDecisionMaking = new MCTSBiasedPlayout(worldModel);
-            this.MCTSDecisionMaking.MaxIterations = 100000;
+            this.MCTSDecisionMaking.MaxIterations = 10000;
             this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 100;
         }
 
