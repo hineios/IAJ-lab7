@@ -44,11 +44,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         }
 
 
-        protected override Reward Playout(WorldModel initialPlayoutState)
+		protected override Reward Playout(EfficientWorldModel initialPlayoutState)
         {
             //throw new NotImplementedException();
             ActionHistory = new List<Pair<int, GOB.Action>>();
-            WorldModel model = initialPlayoutState.GenerateChildWorldModel();
+			EfficientWorldModel model = initialPlayoutState.GenerateChildWorldModel();
             Action action;
 
             int playoutReach = 0;

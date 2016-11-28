@@ -52,15 +52,15 @@ namespace Assets.Scripts.DecisionMakingActions
             this.Character.GameManager.SwordAttack(this.Target);
         }
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             base.ApplyActionEffects(worldModel);
 
-            var xpValue = worldModel.GetGoalValue(AutonomousCharacter.GAIN_XP_GOAL);
-            worldModel.SetGoalValue(AutonomousCharacter.GAIN_XP_GOAL,xpValue-this.xpChange); 
+            //var xpValue = worldModel.GetGoalValue(AutonomousCharacter.GAIN_XP_GOAL);
+            //worldModel.SetGoalValue(AutonomousCharacter.GAIN_XP_GOAL,xpValue-this.xpChange); 
 
-            var surviveValue = worldModel.GetGoalValue(AutonomousCharacter.SURVIVE_GOAL);
-            worldModel.SetGoalValue(AutonomousCharacter.SURVIVE_GOAL,surviveValue-this.hpChange);
+            //var surviveValue = worldModel.GetGoalValue(AutonomousCharacter.SURVIVE_GOAL);
+            //worldModel.SetGoalValue(AutonomousCharacter.SURVIVE_GOAL,surviveValue-this.hpChange);
 
             var hp = (int)worldModel.GetProperty(Properties.HP);
             worldModel.SetProperty(Properties.HP,hp + this.hpChange);
@@ -72,7 +72,7 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name,false);
         }
 
-		public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
 		{
             //We must be capable of withstanding the retaliation of the mob
             float value=5f;

@@ -22,7 +22,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return this.GetDuration(this.Character.Character.KinematicData.position);
         }
 
-        public override float GetDuration(WorldModel worldModel)
+		public override float GetDuration(EfficientWorldModel worldModel)
         {
             var position = (Vector3)worldModel.GetProperty(Properties.POSITION);
             return this.GetDuration(position);
@@ -48,7 +48,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return this.Target != null;
         }
 
-        public override bool CanExecute(WorldModel worldModel)
+		public override bool CanExecute(EfficientWorldModel worldModel)
         {
             if (this.Target == null) return false;
             var targetEnabled = (bool)worldModel.GetProperty(this.Target.name);
@@ -61,12 +61,9 @@ namespace Assets.Scripts.DecisionMakingActions
         }
 
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             var duration = this.GetDuration(worldModel);
-
-            var quicknessValue = worldModel.GetGoalValue(AutonomousCharacter.BE_QUICK_GOAL);
-            worldModel.SetGoalValue(AutonomousCharacter.BE_QUICK_GOAL, quicknessValue + duration*0.1f);
 
             var time = (float)worldModel.GetProperty(Properties.TIME);
             worldModel.SetProperty(Properties.TIME, time + duration);
@@ -74,7 +71,7 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(Properties.POSITION, Target.transform.position);
         }
 
-        public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
         {
             //The only feature that counts is the duration of doing this action (no need for the weight)
             return this.GetDuration(currentState);

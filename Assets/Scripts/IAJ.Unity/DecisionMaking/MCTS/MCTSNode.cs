@@ -5,7 +5,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 {
     public class MCTSNode
     {
-        public WorldModel State { get; private set; }
+		public EfficientWorldModel State { get; private set; }
         public MCTSNode Parent { get; set; }
         public GOB.Action Action { get; set; }
         public int PlayerID { get; set; }
@@ -17,7 +17,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         public float H { get; set; }
         public double AcumulatedE {get; set; }
 
-        public MCTSNode(WorldModel state)
+		public MCTSNode(EfficientWorldModel state)
         {
             this.State = state;
             this.ChildNodes = new List<MCTSNode>();

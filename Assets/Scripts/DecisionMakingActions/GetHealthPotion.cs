@@ -28,7 +28,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return this.Character.GameManager.characterData.HP < this.Character.GameManager.characterData.MaxHP;
         }
 
-        public override bool CanExecute(WorldModel worldModel)
+		public override bool CanExecute(EfficientWorldModel worldModel)
         {
             if (!base.CanExecute(worldModel)) return false;
             var hp = (int)worldModel.GetProperty(Properties.HP);
@@ -42,7 +42,7 @@ namespace Assets.Scripts.DecisionMakingActions
             this.Character.GameManager.GetHealthPotion(this.Target);
         }
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             base.ApplyActionEffects(worldModel);
             worldModel.SetProperty(Properties.HP, 10);
@@ -50,7 +50,7 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
 		{
             var hp = (int)currentState.GetProperty(Properties.HP);
 

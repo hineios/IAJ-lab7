@@ -41,7 +41,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return this.Character.GameManager.characterData.Mana >= 5;
         }
 
-        public override bool CanExecute(WorldModel worldModel)
+		public override bool CanExecute(EfficientWorldModel worldModel)
         {
             if (!base.CanExecute(worldModel)) return false;
             var mana = (int)worldModel.GetProperty(Properties.MANA);
@@ -55,12 +55,12 @@ namespace Assets.Scripts.DecisionMakingActions
         }
 
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             base.ApplyActionEffects(worldModel);
 
-            var xpValue = worldModel.GetGoalValue(AutonomousCharacter.GAIN_XP_GOAL);
-            worldModel.SetGoalValue(AutonomousCharacter.GAIN_XP_GOAL, xpValue - this.xpChange);
+            //var xpValue = worldModel.GetGoalValue(AutonomousCharacter.GAIN_XP_GOAL);
+            //worldModel.SetGoalValue(AutonomousCharacter.GAIN_XP_GOAL, xpValue - this.xpChange);
 
             var xp = (int)worldModel.GetProperty(Properties.XP);
             worldModel.SetProperty(Properties.XP, xp + this.xpChange);
@@ -73,7 +73,7 @@ namespace Assets.Scripts.DecisionMakingActions
                 worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
 		{
 			float result = 0.0f;
 			if (Target.tag.Equals ("Skeleton")) { //Not as good as killing the Orc, but still good

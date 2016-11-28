@@ -16,7 +16,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return this.Character.GameManager.characterData.Mana < 10;
         }
 
-        public override bool CanExecute(WorldModel worldModel)
+		public override bool CanExecute(EfficientWorldModel worldModel)
         {
             if (!base.CanExecute(worldModel)) return false;
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts.DecisionMakingActions
         }
 
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             base.ApplyActionEffects(worldModel);
             worldModel.SetProperty(Properties.MANA, 10);
@@ -39,7 +39,7 @@ namespace Assets.Scripts.DecisionMakingActions
             worldModel.SetProperty(this.Target.name, false);
         }
 
-		public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
 		{
             var mana = (int)currentState.GetProperty(Properties.MANA);
 			var distance = base.GetH (currentState);

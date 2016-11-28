@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
 {
@@ -35,16 +36,17 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             //recursive implementation of WorldModel
             if (this.Properties.ContainsKey(propertyName))
             {
-                return this.Properties[propertyName];
+				return this.Properties[propertyName];
             }
             else if (this.Parent != null)
             {
-                return this.Parent.GetProperty(propertyName);
+				return this.Parent.GetProperty(propertyName);
             }
             else
             {
                 return null;
             }
+
         }
 
         public virtual void SetProperty(string propertyName, object value)
@@ -104,6 +106,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             return discontentment;
         }
 
+		/*
         public virtual Action GetNextAction()
         {
             Action action = null;
@@ -132,7 +135,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
         {
             return this.Actions.Where(a => a.CanExecute(this)).ToArray();
         }
-
+*/
         public virtual bool IsTerminal()
         {
             return true;

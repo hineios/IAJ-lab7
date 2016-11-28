@@ -71,7 +71,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 selectedNode = Selection(this.InitialNode);
 
                 // Playout: Drills randomly until a final state is achieved
-                reward = Playout(selectedNode.State);
+				reward = Playout(selectedNode.State);
 
                 // Backpropagate: Updates all the parent nodes until the root with the value obtained in the Playout phase 
                 Backpropagate(selectedNode, reward);
@@ -123,10 +123,10 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             return node;
         }
 
-        protected virtual Reward Playout(WorldModel initialPlayoutState)
+		protected virtual Reward Playout(EfficientWorldModel initialPlayoutState)
         {
             
-            WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
+			EfficientWorldModel roll = initialPlayoutState.GenerateChildWorldModel();
 
             int playoutReach = 0;
             // Drills randomly (through a random child) until a terminal state is achieved
@@ -163,7 +163,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 
         protected MCTSNode Expand(MCTSNode parent, GOB.Action action)
         {
-            WorldModel futureState = parent.State.GenerateChildWorldModel();
+			EfficientWorldModel futureState = parent.State.GenerateChildWorldModel();
             action.ApplyActionEffects(futureState);
             futureState.CalculateNextPlayer();
             MCTSNode child = new MCTSNode(futureState);

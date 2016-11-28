@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameManager
 {
-    public class FutureStateWorldModel : WorldModel
+	public class FutureStateWorldModel : EfficientWorldModel
     {
         protected GameManager GameManager { get; set; }
         protected int NextPlayer { get; set; }
         protected Action NextEnemyAction { get; set; }
         protected Action[] NextEnemyActions { get; set; }
 
-        public FutureStateWorldModel(GameManager gameManager, List<Action> actions) : base(actions)
+		public FutureStateWorldModel(GameManager gameManager, List<Action> actions) : base(actions, gameManager)
         {
             this.GameManager = gameManager;
             this.NextPlayer = 0;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.GameManager
             this.GameManager = parent.GameManager;
         }
 
-        public override WorldModel GenerateChildWorldModel()
+		public override EfficientWorldModel GenerateChildWorldModel()
         {
             return new FutureStateWorldModel(this);
         }

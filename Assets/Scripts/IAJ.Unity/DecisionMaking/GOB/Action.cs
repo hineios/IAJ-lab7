@@ -36,12 +36,12 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             return this.Duration;
         }
 
-        public virtual float GetDuration(WorldModel worldModel)
+		public virtual float GetDuration(EfficientWorldModel worldModel)
         {
             return this.Duration;
         }
 
-        public virtual bool CanExecute(WorldModel woldModel)
+		public virtual bool CanExecute(EfficientWorldModel woldModel)
         {
             return true;
         }
@@ -55,11 +55,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
         {
         }
 
-        public virtual void ApplyActionEffects(WorldModel worldModel)
+		public virtual void ApplyActionEffects(EfficientWorldModel worldModel)
         {
         }
 
-		public virtual float GetH(WorldModel currentState)
+		public virtual float GetH(EfficientWorldModel currentState)
 		{
             //Keep in mind that low H value means an action is desirable
             //Also keep in mind that this method is only called if the action is executable

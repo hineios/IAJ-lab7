@@ -13,7 +13,7 @@ namespace Assets.Scripts.DecisionMakingActions
             this.Character = character;
         }
 
-        public override void ApplyActionEffects(WorldModel worldModel)
+		public override void ApplyActionEffects(EfficientWorldModel worldModel)
         {
             int maxHP = (int)worldModel.GetProperty(Properties.MAXHP);
             int level = (int)worldModel.GetProperty(Properties.LEVEL);
@@ -41,7 +41,7 @@ namespace Assets.Scripts.DecisionMakingActions
         }
         
 
-        public override bool CanExecute(WorldModel worldModel)
+		public override bool CanExecute(EfficientWorldModel worldModel)
         {
             int xp = (int)worldModel.GetProperty(Properties.XP);
             int level = (int)worldModel.GetProperty(Properties.LEVEL);
@@ -68,7 +68,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return 0.0f;
         }
 
-        public override float GetDuration(WorldModel worldModel)
+		public override float GetDuration(EfficientWorldModel worldModel)
         {
             return 0.0f;
         }
@@ -78,7 +78,7 @@ namespace Assets.Scripts.DecisionMakingActions
             return 0.0f;
         }
 
-		public override float GetH(WorldModel currentState)
+		public override float GetH(EfficientWorldModel currentState)
 		{
             //This action has no duration
             //Since this method is only called if the action is executable, we should do it right away

@@ -45,11 +45,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         }
 
 
-        protected override Reward Playout(WorldModel initialPlayoutState)
+		protected override Reward Playout(EfficientWorldModel initialPlayoutState)
         {
             //throw new NotImplementedException();
             ActionHistory = new List<Pair<int, GOB.Action>>();
-            WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
+			EfficientWorldModel roll = initialPlayoutState.GenerateChildWorldModel();
             Action choosenAction;
             GOB.Action[] actions;
             double sumOfActionsH = 0.0f;
