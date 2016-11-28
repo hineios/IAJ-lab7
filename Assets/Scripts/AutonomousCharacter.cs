@@ -68,7 +68,7 @@ namespace Assets.Scripts
         public void Initialize(NavMeshPathGraph navMeshGraph, AStarPathfinding pathfindingAlgorithm)
         {
             this.MCTSActive = true; //change this if you want to try DL-GOAP
-            this.draw = true;
+            this.draw = false;
             this.navMesh = navMeshGraph;
             this.AStarPathFinding = pathfindingAlgorithm;
             this.AStarPathFinding.NodesPerSearch = 100;
@@ -76,7 +76,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            this.draw = true;
+            this.draw = false;
 
             this.navMesh = NavigationManager.Instance.NavMeshGraphs[0];
             this.Character = new DynamicCharacter(this.gameObject);
@@ -158,7 +158,8 @@ namespace Assets.Scripts
             //this.MCTSDecisionMaking = new MCTS(worldModel);
             //this.MCTSDecisionMaking = new MCTSRAVE(worldModel);
             this.MCTSDecisionMaking = new MCTSBiasedPlayout(worldModel);
-            this.MCTSDecisionMaking.MaxIterations = 10000;
+            //this.MCTSDecisionMaking = new MCTSRAVEandBiasedPlayout(worldModel); 
+            this.MCTSDecisionMaking.MaxIterations = 30000;
             this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 100;
         }
 
