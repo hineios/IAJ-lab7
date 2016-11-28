@@ -16,9 +16,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 
         protected override Reward Playout(WorldModel initialPlayoutState)
         {
-			//Debug.Log("Playout MCTS Biased");
 			WorldModel roll = initialPlayoutState.GenerateChildWorldModel();
-			List<GOB.Action> listOfActions = new List<GOB.Action> ();
 			int playoutReach = 0;
 			double sumOfActionsH = 0.0f;
 			while (!roll.IsTerminal ()) 
@@ -26,7 +24,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				GOB.Action[] actions = roll.GetExecutableActions ();
 				GOB.Action choosenAction = actions[0];
 				foreach (GOB.Action action in actions) {
-					sumOfActionsH += Mathf.Exp(action.GetH (roll));
+					sumOfActionsH += Math.Exp(-action.GetH (roll));
 				}
 				int i = 0;
 				float actionValue = 0.0f;
@@ -34,14 +32,13 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 				double currentGibbsProb = 0.0;
 				foreach (GOB.Action action in actions) {
 					actionValue = action.GetH (roll);
-					currentGibbsProb = Mathf.Exp(actionValue) /sumOfActionsH;
+					currentGibbsProb = Math.Exp(-actionValue) /sumOfActionsH;
 					if (currentGibbsProb < gibbsProb) {
 						gibbsProb = currentGibbsProb;
 						choosenAction = action;
 					}
 					i++;
 				}
-				listOfActions.Add (choosenAction);
 				choosenAction.ApplyActionEffects (roll);
 				roll.CalculateNextPlayer();
 				playoutReach++;
