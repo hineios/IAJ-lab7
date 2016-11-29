@@ -63,7 +63,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 choosenAction = actions[0];
                 foreach (GOB.Action action in actions)
                 {
-                    sumOfActionsH += Math.Exp(-action.GetH(roll));
+                    sumOfActionsH += Math.Exp(action.GetH(roll));
                 }
                 int i = 0;
                 float actionValue = 0.0f;
@@ -72,7 +72,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 foreach (GOB.Action action in actions)
                 {
                     actionValue = action.GetH(roll);
-                    currentGibbsProb = Math.Exp(-actionValue) / sumOfActionsH;
+                    currentGibbsProb = Math.Exp(actionValue) / sumOfActionsH;
                     if (currentGibbsProb < gibbsProb)
                     {
                         gibbsProb = currentGibbsProb;
